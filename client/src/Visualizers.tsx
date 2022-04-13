@@ -47,6 +47,7 @@ export function VisualizerContainer({ visualizer }: VisualizerContainerProps) {
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
     p5.createCanvas(width, height).parent(canvasParentRef);
+    p5.angleMode(p5.DEGREES);
   };
 
   return (

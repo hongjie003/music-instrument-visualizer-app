@@ -137,7 +137,9 @@ function VisualizersNav({ state }: SideNavProps): JSX.Element {
           onClick={() => console.log(v.name)}
         />
       ))}
+      
     </Section>
+    
   );
 }
 

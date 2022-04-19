@@ -38,29 +38,12 @@ export const newWaveformVisualizer = new Visualizer(
         p5.stroke (black_one, black_two, black_three)
         p5.strokeWeight(1.5)
         p5.rect(x, y, width - i * 2, height -i, i )
-        // p5.rect(x,y,width - i * 3, height - i * 3, 200 - i);
 
         p5.pop()
     }
     
    
-    
-    
-    // p5.beginShape();
-    // for (let i = 0; i <= values.length; i++) {
-        
-    //     const amplitude = values[i] as number;
-    //     const x = p5.map(i, 30, values.length - 1, 20, width);
-    //     const y = height / 2 + amplitude * height;
-    //     // Place vertex
 
-    //     p5.line(y, x, y, x);
-    //     p5.square(x, y, 40);
-        
-        
-    // }
-    // p5.endShape();
-    
     },
   );
 

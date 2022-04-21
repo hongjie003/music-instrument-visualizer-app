@@ -1,8 +1,6 @@
 // 3rd party library imports
 import P5 from 'p5';
 import * as Tone from 'tone';
-import { couldStartTrivia } from 'typescript';
-import { SideNav } from '../SideNav';
 
 // project imports
 import { Visualizer } from '../Visualizers';
@@ -10,20 +8,11 @@ import { Visualizer } from '../Visualizers';
 export const avannak_WaveformVisualizer = new Visualizer(
   "avannak's visualizer",
   (p5: P5, analyzer: Tone.Analyser) => {
-    function Star(x:any, y:any, n:any, outerRadius:any, innerRadius:any, rotation:any){
-    
-      let theta = p5.TAU / n;
-      p5.beginShape();
-      for(let i=0;i<n;i++){
-        p5.vertex(x + Math.cos(i * theta) * outerRadius, y + Math.sin(i * theta) * outerRadius);
-        p5.vertex(x + Math.cos((i + 0.5) * theta) * innerRadius, y + Math.sin((i + 0.5) * theta) * innerRadius);
-      }
-    }
     const ellipseMinSize = 1;
     const ellipseMaxSize = 10;
     const ellipseMinAmount = 10;
     const ellipseMaxAmount = 100;
-    
+
     let ellipseSizes = [];
     let ellipsePositions = [];
 

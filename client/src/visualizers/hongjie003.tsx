@@ -23,7 +23,7 @@ export const Hongjie003Visualizer = new Visualizer(
     const scaleAmpMax = p5.map(ampMax, -1, 1, 0, 1000);
     
 
-    p5.background(0);
+    p5.background([130,130,200]);
     p5.strokeWeight(dim * 0.01);
     p5.stroke(255);
     p5.noFill();

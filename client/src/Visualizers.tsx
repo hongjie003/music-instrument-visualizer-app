@@ -51,7 +51,7 @@ export function VisualizerContainer({ visualizer }: VisualizerContainerProps) {
 
   return (
     <div className={'bg-black absolute bottom-0 right-0 left-0 h-50'}>
-      <div className={'z-1 absolute left-0 top-0 pa4 white f5'}>{name}</div>
+      <div className={name === "avannak's visualizer" ? 'z-1 absolute left-0 top-0 pa4 black f5' : 'z-1 absolute left-0 top-0 pa4 white f5'}>{name}</div>
       <Sketch
         setup={setup}
         draw={p5 => draw(p5, analyzer)}

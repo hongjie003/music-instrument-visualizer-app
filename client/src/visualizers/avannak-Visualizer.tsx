@@ -1,0 +1,75 @@
+// 3rd party library imports
+import P5 from 'p5';
+import * as Tone from 'tone';
+import { couldStartTrivia } from 'typescript';
+import { SideNav } from '../SideNav';
+
+// project imports
+import { Visualizer } from '../Visualizers';
+
+export const avannak_WaveformVisualizer = new Visualizer(
+  "avannak's visualizer",
+  (p5: P5, analyzer: Tone.Analyser) => {
+    function Star(x:any, y:any, n:any, outerRadius:any, innerRadius:any, rotation:any){
+    
+      let theta = p5.TAU / n;
+      p5.beginShape();
+      for(let i=0;i<n;i++){
+        p5.vertex(x + Math.cos(i * theta) * outerRadius, y + Math.sin(i * theta) * outerRadius);
+        p5.vertex(x + Math.cos((i + 0.5) * theta) * innerRadius, y + Math.sin((i + 0.5) * theta) * innerRadius);
+      }
+    }
+    const ellipseMinSize = 1;
+    const ellipseMaxSize = 10;
+    const ellipseMinAmount = 10;
+    const ellipseMaxAmount = 100;
+    
+    let ellipseSizes = [];
+    let ellipsePositions = [];
+
+    var ellipseAmount = p5.random(ellipseMinAmount, ellipseMaxAmount);
+
+    for (var i = 0; i < ellipseAmount; i ++) {
+      var ellipseSize = p5.random(ellipseMinSize, ellipseMaxSize);
+      var ellipsePosition = p5.createVector(p5.random(0, p5.width), p5.random(0, p5.height));
+      ellipseSizes.push(ellipseSize);
+      ellipsePositions.push(ellipsePosition);
+  }
+
+    for (var i = 0; i < ellipseSizes.length; i ++) {
+      var ellipseSize = ellipseSizes[i];
+      var ellipsePosition = ellipsePositions[i];
+      p5.ellipse(ellipsePosition.x, ellipsePosition.y, ellipseSize, ellipseSize);
+      
+  }
+
+    const width = window.innerWidth;
+    const height = window.innerHeight / 2;
+    const dim = Math.min(width, height);
+
+    p5.background(255,30);
+    p5.noStroke();
+    p5.fill(40, 200, 40);
+    
+    p5.strokeWeight(dim * 0.01);
+    p5.noFill();
+
+    const values = analyzer.getValue();
+    p5.strokeWeight(10);
+    p5.beginShape();
+  
+    var o = Math.round, r = Math.random, s = 255;
+    for (let i = 0; i < values.length; i++) {
+      p5.fill('rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')');
+      const amplitude = values[i] as number;
+      const x = p5.map(i, 0, values.length - 1, 0, width);
+      const y = height / 2 + amplitude * height;
+      p5.vertex(x, y);
+    }
+
+    
+    p5.endShape();
+  },
+);
+
+

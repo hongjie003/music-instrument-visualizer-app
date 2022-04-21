@@ -8,29 +8,24 @@ import React from 'react';
 import { Instrument, InstrumentProps } from '../Instruments';
 
 /** ------------------------------------------------------------------------ **
- * Contains implementation of components for Piano.
+ * Contains implementation of components for Ukulele.
  ** ------------------------------------------------------------------------ */
 
-interface PianoKeyProps {
-  note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
+interface UkuleleKeyProps {
+  note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B (Order changes depending on string)
   duration?: string;
   synth?: Tone.Synth; // Contains library code for making sound
-  minor?: boolean; // True if minor key, false if major key
   octave: number;
-  index: number; // octave + index together give a location for the piano key
-  row: number; // Top / Bottom Border Display
+  index: number; // octave + index together give a location for the ukulele key
 }
 
-export function PianoKey({
+export function UkuleleKey({
     note,
     synth,
-    //   minor,
     index,
-    row,
-}: PianoKeyProps): JSX.Element {
+}: UkuleleKeyProps): JSX.Element {
   /**
-   * This React component corresponds to either a major or minor key in the piano.
-   * See `PianoKeyWithoutJSX` for the React component without JSX.
+   * This React component corresponds to either a major or minor key in the ukulele.
    */
   return (
     // Observations:
@@ -41,71 +36,31 @@ export function PianoKey({
       onMouseDown={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
       onMouseUp={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
       className={classNames('br bl pointer absolute dim grow bg-washed-red', {
-        // 'bg-black black h3': minor, // minor keys are black
-        // 'black bg-white h4': !minor, // major keys are white
         'black bg-white h2': true, // major keys are white
-        'bt': row == 1, // Top border for top row,
-        'bb': row == 4, // Bottom border for bottom row,
-
       })}
       style={{
         // CSS
         top: 0,
         left: `${index * 1 - 7}rem`,
-        // zIndex: minor ? 1 : 0,
         zIndex: 0,
-        // width: minor ? '1.5rem' : '2rem',
         width: '5rem',
-        // marginLeft: minor ? '0.25rem' : 0,
         marginLeft: 0,
       }}
     >
         <div
-            className={classNames('ba b--dark-pink bw1 w-100 dib v-base')}
+            className={classNames('ba b--dark-pink w-100 dib v-base')}
         ></div>
     </div>
   );
 }
 
-// eslint-disable-next-line
-function PianoKeyWithoutJSX({
-  note,
-  synth,
-  minor,
-  index,
-}: PianoKeyProps): JSX.Element {
-  /**
-   * This React component for pedagogical purposes.
-   * See `PianoKey` for the React component with JSX (JavaScript XML).
-   */
-  return React.createElement(
-    'div',
-    {
-      onMouseDown: () => synth?.triggerAttack(`${note}`),
-      onMouseUp: () => synth?.triggerRelease('+0.25'),
-      className: classNames('ba pointer absolute dim', {
-        'bg-black black h3': minor,
-        'black bg-white h4': !minor,
-      }),
-      style: {
-        top: 0,
-        left: `${index * 2}rem`,
-        zIndex: minor ? 1 : 0,
-        width: minor ? '1.5rem' : '2rem',
-        marginLeft: minor ? '0.25rem' : 0,
-      },
-    },
-    [],
-  );
-}
-
-function PianoType({ title, onClick, active }: any): JSX.Element {
+function UkuleleType({ title, onClick, active }: any): JSX.Element {
   return (
     <div
       onClick={onClick}
       className={classNames('dim pointer ph2 pv1 ba mr2 br1 fw7 bw1', {
-        'b--black black': active,
-        'gray b--light-gray': !active,
+        'b--light-pink mid-gray': !active,
+        'dark-pink b--dark-pink': active,
       })}
     >
       {title}
@@ -113,7 +68,7 @@ function PianoType({ title, onClick, active }: any): JSX.Element {
   );
 }
 
-function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
+function Ukulele({ synth, setSynth }: InstrumentProps): JSX.Element {
   const keys = [
     List([
       { note: 'A', idx: 0, octave: 4 },
@@ -197,19 +152,18 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
   ]) as List<OscillatorType>;
 
   return (
-    <div className="pv4">
+    <div className="pv4 bg-washed-red">
         {Range(1, 5).map(string =>
             <div className="relative dib h2 w-100">
                 {keys[string - 1].map(key => {
                     const note = `${key.note}${key.octave}`;
                     return (
-                    <PianoKey
+                    <UkuleleKey
                         key={note} //react key
                         note={note}
                         synth={synth}
                         octave={key.octave}
                         index={(key.octave - 2) * 7 + key.idx}
-                        row={string}
                         />
                         );
                     })}
@@ -218,7 +172,7 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
 
       <div className={'pl4 pt4 flex'}>
         {oscillators.map(o => (
-          <PianoType
+          <UkuleleType
             key={o}
             title={o}
             onClick={() => setOscillator(o)}
@@ -230,4 +184,4 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const UkuleleInstrument = new Instrument('hongjie003', Piano);
+export const UkuleleInstrument = new Instrument('hongjie003', Ukulele);

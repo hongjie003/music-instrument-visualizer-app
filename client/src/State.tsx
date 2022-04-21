@@ -6,6 +6,7 @@ import { PianoInstrument } from './instruments/Piano';
 import { newWaveformVisualizer } from './visualizers/shamarireland79-1';
 import { avannak_WaveformVisualizer } from './visualizers/avannak-Visualizer'
 import { WaveformVisualizer } from './visualizers/Waveform';
+import { Hongjie003Visualizer } from './visualizers/hongjie003';
 
 
 /** ------------------------------------------------------------------------ **
@@ -23,7 +24,7 @@ const instruments = List([PianoInstrument]);       // similar to Instrument[]
  * Start with the default waveform visualizer.
  * Add your visualizers to this list.
  */
-const visualizers = List([WaveformVisualizer, newWaveformVisualizer, avannak_WaveformVisualizer ]);    // similar to Visualizer[]
+const visualizers = List([WaveformVisualizer, newWaveformVisualizer, Hongjie003Visualizer, avannak_WaveformVisualizer]);    // similar to Visualizer[]
 
 
 /**

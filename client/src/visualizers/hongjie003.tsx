@@ -30,24 +30,36 @@ export const Hongjie003Visualizer = new Visualizer(
 
     p5.translate(width / 2, height / 2); // Move to center
 
+    // Create circle with different size
+    for (let s = 1; s < 13; s += 0.08) {
 
-    // The t is to make a left half circle and right half circle
-    for (let t = -1; t <= 1; t +=2){
-      p5.beginShape();
-      for (let i = 0; i <= 180; i += 0.5) {
-        const index = p5.floor(p5.map(i, 0, 180, 0, values.length - 1));
-        const amplitude = values[index] as number;
-  
-        var r = p5.map(amplitude, -1, 1, 150, 350); // Half right circle
-  
-        // divide by 2 to sale down
-        // TODO: make dynamic
-        const x = r * p5.sin(i) * t / circleSize;
-        const y = r * p5.cos(i) / circleSize;
-        p5.vertex(x, y);
+      if(s > 2) s += 0.1;
+
+      if (s < 2) {
+        p5.stroke(50);
+      } else {
+        p5.stroke([190, 100, 160]);
       }
-      p5.endShape();
+
+      // The t is to make a left half circle and right half circle
+      for (let t = -1; t <= 1; t +=2){
+        p5.beginShape();
+        for (let i = 0; i <= 180; i += 0.5) {
+          const index = p5.floor(p5.map(i, 0, 180, 0, values.length - 1));
+          const amplitude = values[index] as number;
+    
+          var r = p5.map(amplitude, -1, 1, 150, 350); // Half right circle
+    
+          // divide by 2 to sale down
+          // TODO: make dynamic
+          const x = r * p5.sin(i) * t / circleSize / s;
+          const y = r * p5.cos(i) / circleSize / s;
+          p5.vertex(x, y);
+        }
+        p5.endShape();
+      }
     }
+
 
     if(scaleAmpMax > 600) {
       for(let i = 0; i < 7; i++) {

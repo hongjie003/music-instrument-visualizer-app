@@ -197,4 +197,4 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const FluteInstrument = new Instrument("Ireland's Inst. (Flute)", Flute, "MONO_SYNTH");
+export const FluteInstrument = new Instrument("shamarireland79-Flute", Flute, "MONO_SYNTH");

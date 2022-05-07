@@ -5,12 +5,12 @@ import P5 from 'p5';
 import { Visualizer } from '../Visualizers';
 
 export const newWaveformVisualizer = new Visualizer(
-    'Ireland Visualizer',
+    "Ireland's Visualizer",
     (p5: P5, analyzer: Tone.Analyser) => {
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
   
-    p5.background(0,128,128);
+    p5.background(222, 184, 135);
     
 
     p5.angleMode(p5.DEGREES)

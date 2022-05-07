@@ -150,7 +150,7 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
               <PianoKey
                 key={note} //react key
                 note={note}
-                synth={synth}
+                synth={synth as Tone.Synth}
                 minor={isMinor}
                 octave={octave}
                 index={(octave - 2) * 7 + key.idx}

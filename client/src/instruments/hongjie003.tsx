@@ -161,7 +161,7 @@ function Ukulele({ synth, setSynth }: InstrumentProps): JSX.Element {
                     <UkuleleKey
                         key={note} //react key
                         note={note}
-                        synth={synth}
+                        synth={synth as Tone.Synth}
                         octave={key.octave}
                         index={(key.octave - 2) * 7 + key.idx}
                         />

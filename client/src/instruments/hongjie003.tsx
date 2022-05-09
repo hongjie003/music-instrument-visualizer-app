@@ -14,7 +14,7 @@ import { Instrument, InstrumentProps } from '../Instruments';
 interface UkuleleKeyProps {
   note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B (Order changes depending on string)
   duration?: string;
-  synth?: Tone.Synth; // Contains library code for making sound
+  synth?: Tone.MonoSynth; // Contains library code for making sound
   octave: number;
   index: number; // octave + index together give a location for the ukulele key
 }
@@ -34,7 +34,7 @@ export function UkuleleKey({
     // 3. The curly braces `{` and `}` should remind you of string interpolation.
     <div
       onMouseDown={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
-      onMouseUp={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
+      onMouseUp={() => synth?.triggerRelease('+0.1')} // Question: what is `onMouseUp`?
       className={classNames('br bl pointer absolute dim grow bg-washed-red', {
         'black bg-white h2': true, // major keys are white
       })}
@@ -132,8 +132,10 @@ function Ukulele({ synth, setSynth }: InstrumentProps): JSX.Element {
     setSynth(oldSynth => {
       oldSynth.disconnect();
 
-      return new Tone.Synth({
+      return new Tone.MonoSynth({
         oscillator: { type: newType } as Tone.OmniOscillatorOptions,
+        envelope: { attack: 0.4, decay: 0.2, sustain: 0.1, release: 0.2 },
+        filter: { type: 'lowshelf', frequency: 350, rolloff: -48, Q: 1, gain: 0}
       }).toDestination();
     });
   };
@@ -161,7 +163,7 @@ function Ukulele({ synth, setSynth }: InstrumentProps): JSX.Element {
                     <UkuleleKey
                         key={note} //react key
                         note={note}
-                        synth={synth as Tone.Synth}
+                        synth={synth as Tone.MonoSynth}
                         octave={key.octave}
                         index={(key.octave - 2) * 7 + key.idx}
                         />
@@ -184,4 +186,4 @@ function Ukulele({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const UkuleleInstrument = new Instrument('hongjie003', Ukulele);
+export const UkuleleInstrument = new Instrument('hongjie003', Ukulele, 'MONO_SYNTH');

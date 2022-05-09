@@ -54,8 +54,8 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   */
 
   return (
-    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 flex flex-column bg-dark-gray yellow">
-      <div className="h3 fw7 f5 flex items-center pl3 bb b--washed-yellow">
+    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 flex flex-column bg-dark-gray light-yellow">
+      <div className="h3 fw7 f5 flex items-center pl3 bb b--washed-yellow gold">
         TEAM PINEAPPLE
       </div>
       <div className="flex-auto">
@@ -172,6 +172,7 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
           if(searchValue === '') return true;
           if(song.get('songTitle').toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) return true;
           if(song.get('artist').toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) return true;
+          if(song.get('genreTitle').toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) return true;
           return false;
         })
         .map(song => (

@@ -25,11 +25,14 @@ function FluteType({ title, onClick, active }: any): JSX.Element {
     <div
       onClick={onClick}
       className={classNames("dim pointer ph2 pv1 ba mr2 br1 fw7 bw1", {
-        "b--black black": active,
-        "gray b--light-gray": !active,
+        "b--saddlebrown": active,
+        "gray b--saddlebrown": !active,
       })}
     >
       {title}
+      <div
+            className={classNames('ba b--burlywood w-100 dib v-base')}
+        ></div>
     </div>
   );
 }
@@ -47,7 +50,7 @@ function FluteHole({
     <div
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
-      style={{ backgroundColor: "black", height: dimension, width: dimension }}
+      style={{ backgroundColor: "#423224", height: dimension, width: dimension }}
     />
   );
 }
@@ -75,6 +78,7 @@ function FluteDrawing({
         display: "flex",
         alignItems: "center",
         paddingLeft: 35,
+        marginLeft: 55,
         paddingRight: 35,
       }}
     >
@@ -178,11 +182,14 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
   ]) as List<OscillatorType>;
 
   return (
-    <div className="pv4">
+   
+    <div className="pv4 gold">
       <FluteDrawing
         keys={keys}
         synth={synth as Tone.MonoSynth} // Specify the type for typescript
       />
+
+  
       <div className={"pl4 pt4 flex"}>
         {oscillators.map((o) => (
           <FluteType
@@ -197,4 +204,4 @@ function Flute({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const FluteInstrument = new Instrument("shamarireland79-Flute", Flute, "MONO_SYNTH");
+export const shamarireland79Instrument = new Instrument("shamarireland79", Flute, "MONO_SYNTH");

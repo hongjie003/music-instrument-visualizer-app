@@ -4,8 +4,8 @@ import P5 from 'p5';
 
 import { Visualizer } from '../Visualizers';
 
-export const newWaveformVisualizer = new Visualizer(
-    "shamarireland79-Visualizer",
+export const shamarireland79Visualizer = new Visualizer(
+    "shamarireland79",
     (p5: P5, analyzer: Tone.Analyser) => {
     const width = window.innerWidth;
     const height = window.innerHeight / 2;

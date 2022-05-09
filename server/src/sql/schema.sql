@@ -1,10 +1,11 @@
 CREATE TABLE songs (
 	id int NOT NULL PRIMARY KEY,
 	song_title text NOT NULL,
-	notes varchar NOT NULL
+	notes varchar NOT NULL,
+	artist varchar NOT NULL
 );
 
-INSERT INTO songs (id, song_title, notes) 
+INSERT INTO songs (id, song_title, notes, artist) 
 VALUES 
-	(1, 'Ode to Joy (Dubstep Remix)', 'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4 D4 D4'),
-	(2, 'Sweet Child O Mine', 'C4 C5 G4 F4 F5 G4 E5 G4 C4 C5 G4 F4 F5 G4 E5 G4 D4 C5 G4 F4 F5 G4 E5 G4 D4 C5 G4 F4 F5 G4 E5 G4 F4 C5 G4 F4 F5 G4 E5 G4 F4 C5 G4 F4 F5 G4 E5 G4 C4 C5 G4 F4 F5 G4 E5 G4 C4 C5 G4 F4 F5 G4 E5 G4');
+	(1, 'Ode to Joy (Dubstep Remix)', 'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4 D4 D4', 'Blue Claw Philharmonic'),
+	(2, 'Sweet Child O Mine', 'C4 C5 G4 F4 F5 G4 E5 G4 C4 C5 G4 F4 F5 G4 E5 G4 D4 C5 G4 F4 F5 G4 E5 G4 D4 C5 G4 F4 F5 G4 E5 G4 F4 C5 G4 F4 F5 G4 E5 G4 F4 C5 G4 F4 F5 G4 E5 G4 C4 C5 G4 F4 F5 G4 E5 G4 C4 C5 G4 F4 F5 G4 E5 G4', "Guns N' Roses");

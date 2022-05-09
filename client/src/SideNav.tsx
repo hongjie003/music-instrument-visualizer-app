@@ -1,7 +1,7 @@
 // 3rd party library imports
 import classNames from 'classnames';
 import { List } from 'immutable';
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import {
   RadioButton20,
@@ -157,23 +157,37 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
    *  |      ...        |
    *  |-----------------|
   */
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
+    setSearchValue(event.currentTarget.value);
+  };
 
   const songs: List<any> = state.get('songs', List());
   return (
-    <Section title="Playlist">
-      {songs.map(song => (
-        <div
+    <>
+      <input style={{ margin: '1em 2em 0' }} type='text' placeholder='Search' value={searchValue} onChange={handleSearch}/>
+      <Section title="Playlist">
+        {songs.filter(song => {
+          if(searchValue === '') return true;
+          if(song.get('songTitle').toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) return true;
+          if(song.get('artist').toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) return true;
+          return false;
+        })
+        .map(song => (
+          <div
           key={song.get('id')}
           className="f6 pointer underline flex items-center no-underline i dim"
           onClick={() =>
             dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id') }))
           }
-        >
-          <Music20 className="mr1" />
-          {song.get('songTitle')}
-        </div>
-      ))}
-    </Section>
+          >
+            <Music20 className="mr1" />
+            {song.get('songTitle')} by {song.get('artist')}
+          </div>
+        ))}
+      </Section>
+    </>
   );
 }
 

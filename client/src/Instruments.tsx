@@ -10,15 +10,15 @@ import { AppState } from "./State";
  * Contains base implementation of an Instrument.
  ** ------------------------------------------------------------------------ */
 
-type ToneSynth = Tone.Synth | Tone.MonoSynth;
-type SYNTH_TYPES = "SYNTH" | "MONO_SYNTH";
+type ToneSynth = Tone.Synth | Tone.MonoSynth | Tone.MembraneSynth;
+type SYNTH_TYPES = "SYNTH" | "MONO_SYNTH" | "MEMBRANE_SYNTH";
 
 export interface InstrumentProps {
   state: AppState;
   dispatch: React.Dispatch<DispatchAction>;
   name: string;
   synth: ToneSynth;
-  setSynth: (f: (oldSynth: ToneSynth) => ToneSynth | Tone.MonoSynth) => void;
+  setSynth: (f: (oldSynth: ToneSynth) => ToneSynth | Tone.MonoSynth | Tone.MembraneSynth) => void;
 }
 
 // Find the different instruments here : https://tonejs.github.io/docs/14.7.77/MonoSynth
@@ -73,6 +73,10 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       ? new Tone.MonoSynth({
           oscillator: { type: "sine" } as Tone.OmniOscillatorOptions,
         }).toDestination()
+    : synthType === "MEMBRANE_SYNTH"
+      ? new Tone.MembraneSynth({
+          oscillator: { type: "sine" } as Tone.OmniOscillatorOptions,
+      }).toDestination()
       : new Tone.Synth({
           oscillator: { type: "sine" } as Tone.OmniOscillatorOptions,
         }).toDestination();

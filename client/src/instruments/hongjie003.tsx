@@ -14,7 +14,7 @@ import { Instrument, InstrumentProps } from '../Instruments';
 interface UkuleleKeyProps {
   note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B (Order changes depending on string)
   duration?: string;
-  synth?: Tone.MonoSynth; // Contains library code for making sound
+  synth?: Tone.MembraneSynth; // Contains library code for making sound
   octave: number;
   index: number; // octave + index together give a location for the ukulele key
 }
@@ -132,10 +132,9 @@ function Ukulele({ synth, setSynth }: InstrumentProps): JSX.Element {
     setSynth(oldSynth => {
       oldSynth.disconnect();
 
-      return new Tone.MonoSynth({
+      return new Tone.MembraneSynth({
         oscillator: { type: newType } as Tone.OmniOscillatorOptions,
         envelope: { attack: 0.4, decay: 0.2, sustain: 0.1, release: 0.2 },
-        filter: { type: 'lowshelf', frequency: 350, rolloff: -48, Q: 1, gain: 0}
       }).toDestination();
     });
   };
@@ -163,7 +162,7 @@ function Ukulele({ synth, setSynth }: InstrumentProps): JSX.Element {
                     <UkuleleKey
                         key={note} //react key
                         note={note}
-                        synth={synth as Tone.MonoSynth}
+                        synth={synth as Tone.MembraneSynth}
                         octave={key.octave}
                         index={(key.octave - 2) * 7 + key.idx}
                         />
@@ -186,4 +185,4 @@ function Ukulele({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const UkuleleInstrument = new Instrument('hongjie003', Ukulele, 'MONO_SYNTH');
+export const UkuleleInstrument = new Instrument('hongjie003', Ukulele, 'MEMBRANE_SYNTH');

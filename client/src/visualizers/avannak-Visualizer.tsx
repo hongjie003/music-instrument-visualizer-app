@@ -16,18 +16,18 @@ export const avannak_WaveformVisualizer = new Visualizer(
     let ellipseSizes = [];
     let ellipsePositions = [];
 
-    var ellipseAmount = p5.random(ellipseMinAmount, ellipseMaxAmount);
+    let ellipseAmount = p5.random(ellipseMinAmount, ellipseMaxAmount);
 
-    for (var i = 0; i < ellipseAmount; i ++) {
-      var ellipseSize = p5.random(ellipseMinSize, ellipseMaxSize);
-      var ellipsePosition = p5.createVector(p5.random(0, p5.width), p5.random(0, p5.height));
+    for (let i = 0; i < ellipseAmount; i ++) {
+      let ellipseSize = p5.random(ellipseMinSize, ellipseMaxSize);
+      let ellipsePosition = p5.createVector(p5.random(0, p5.width), p5.random(0, p5.height));
       ellipseSizes.push(ellipseSize);
       ellipsePositions.push(ellipsePosition);
   }
 
-    for (var i = 0; i < ellipseSizes.length; i ++) {
-      var ellipseSize = ellipseSizes[i];
-      var ellipsePosition = ellipsePositions[i];
+    for (let i = 0; i < ellipseSizes.length; i ++) {
+      let ellipseSize = ellipseSizes[i];
+      let ellipsePosition = ellipsePositions[i];
       p5.ellipse(ellipsePosition.x, ellipsePosition.y, ellipseSize, ellipseSize);
       
   }
@@ -47,7 +47,7 @@ export const avannak_WaveformVisualizer = new Visualizer(
     p5.strokeWeight(10);
     p5.beginShape();
   
-    var o = Math.round, r = Math.random, s = 255;
+    let o = Math.round, r = Math.random, s = 255;
     for (let i = 0; i < values.length; i++) {
       p5.fill('rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')');
       const amplitude = values[i] as number;

@@ -15,7 +15,6 @@ interface DrumPadProps {
   note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
   duration?: string;
   synth?: Tone.MembraneSynth; // Contains library code for making sound
-  minor?: boolean; // True if minor key, false if major key
   octave: number;
   index: number; // octave + index together give a location for the piano key
 }
@@ -36,7 +35,7 @@ export function DrumPad({
     // 3. The curly braces `{` and `}` should remind you of string interpolation.
     <div
       onMouseDown={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
-      onMouseUp={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
+      onMouseUp={() => synth?.triggerRelease('+1.1')} // Question: what is `onMouseUp`?
       className={classNames('ba pointer absolute dim', {
         'black bg-white h4': true, // major keys are white
       })}
@@ -46,14 +45,15 @@ export function DrumPad({
         // left: `${index * 2}rem`,
         left: `${index * 10}rem`,
         zIndex: 0,
-        background: 'grey',
-        height: '10rem',
-        width: '10rem',
+        background: 'DimGrey',
+        height: '150px',
+        width: '150px',
         borderStyle: 'solid',
-        borderWidth: '5px',
-        marginLeft: 100,
-        marginRight: 100,
-        borderRadius: 100,
+        borderWidth: '8px',
+        borderColor: 'SandyBrown',
+        marginLeft: '100px',
+        marginRight: '100px',
+        borderRadius: '100px',
       }}
     ></div>
   );
@@ -75,13 +75,13 @@ function DrumType({ title, onClick, active }: any): JSX.Element {
 
 function Drum({ synth, setSynth }: InstrumentProps): JSX.Element {
   const keys = List([
-    { note: 'A', idx: 0 },
-    { note: 'Bb', idx: 1 },
-    { note: 'B', idx: 2 },
-    { note: 'C', idx: 3 },
-    // { note: 'Db', idx: 4 },
-    // { note: 'Eb', idx: 5},
-    // { note: 'E', idx: 6 },
+    { note: 'C', idx: 0, octave: 7},
+    { note: 'Db', idx: 1, octave: 7},
+    { note: 'D', idx: 2, octave: 7},
+    { note: 'A', idx: 3, octave: 7},
+    { note: 'Bb', idx: 4, octave: 7},
+    { note: 'B', idx: 5, octave: 7},
+    // { note: 'Gb', idx: 6 },
     // { note: 'F', idx: 7},
     // { note: 'Gb', idx: 9 },
     // { note: 'G', idx: 10 },
@@ -91,7 +91,7 @@ function Drum({ synth, setSynth }: InstrumentProps): JSX.Element {
     setSynth(oldSynth => {
       oldSynth.disconnect();
 
-      return new Tone.Synth({
+      return new Tone.MembraneSynth({
         oscillator: { type: newType } as Tone.OmniOscillatorOptions,
       }).toDestination();
     });
@@ -123,6 +123,7 @@ function Drum({ synth, setSynth }: InstrumentProps): JSX.Element {
                 synth={synth as Tone.MembraneSynth}
                 octave={octave}
                 index={(octave - 2) * 7 + key.idx}
+                // index={key.idx}
               />
             );
           }),

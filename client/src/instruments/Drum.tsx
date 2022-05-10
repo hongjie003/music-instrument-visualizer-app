@@ -143,4 +143,4 @@ function Drum({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const DrumInstrument = new Instrument('Drum', Drum, 'MEMBRANE_SYNTH');
+export const DrumInstrument = new Instrument('icebreros_Drum', Drum, 'MEMBRANE_SYNTH');

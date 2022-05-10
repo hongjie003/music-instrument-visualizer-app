@@ -54,9 +54,9 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   */
 
   return (
-    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column">
-      <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray">
-        Nameless App
+    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 flex flex-column bg-dark-gray light-yellow">
+      <div className="h3 fw7 f5 flex items-center pl3 bb b--washed-yellow gold">
+        TEAM PINEAPPLE
       </div>
       <div className="flex-auto">
         <InstrumentsNav state={state} dispatch={dispatch} />
@@ -166,19 +166,20 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
   const songs: List<any> = state.get('songs', List());
   return (
     <>
-      <input style={{ margin: '1em 2em 0' }} type='text' placeholder='Search' value={searchValue} onChange={handleSearch}/>
       <Section title="Playlist">
+        <input style={{ margin: '0 0 1em', width: '100%' }} type='text' placeholder='Search' value={searchValue} onChange={handleSearch}/>
         {songs.filter(song => {
           if(searchValue === '') return true;
           if(song.get('songTitle').toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) return true;
           if(song.get('artist').toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) return true;
+          if(song.get('genreTitle').toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) return true;
           return false;
         })
         .map(song => (
-          <div className='ba b--dashed pa2 mb1'>
+          <div className='pa2 mb1 bg-gray'>
             <div
             key={song.get('id')}
-            className="f6 pointer underline flex items-center no-underline i dim"
+            className="f6 pointer underline flex items-center no-underline i dim light-gray"
             onClick={() =>
               dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id') }))
             }
@@ -186,7 +187,7 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
               <Music20 className="mr1" />
               {song.get('songTitle')} by {song.get('artist')}
             </div>
-            <span className='dib pa1 ma1' style={{background: song.get('genreColor'), fontSize: '0.7em', borderRadius: "3px"}}>
+            <span className='dib pa1 ma1 dark-gray' style={{background: song.get('genreColor'), fontSize: '0.7em', borderRadius: "3px"}}>
               {song.get('genreTitle')}
             </span>
           </div>
@@ -216,7 +217,7 @@ function RadioButton({ to, text, active, onClick }: RadioButtonProps): JSX.Eleme
   return (
     <Link to={to} className="no-underline">
       <div
-        className={classNames('f6 flex items-center black', { fw7: active })}
+        className={classNames('f6 flex items-center light-gray', { fw7: active })}
         onClick={onClick}
       >
         {active ? (
@@ -237,7 +238,7 @@ function RadioButton({ to, text, active, onClick }: RadioButtonProps): JSX.Eleme
 
 const Section: React.FC<{ title: string }> = ({ title, children }) => {
   return (
-    <div className="flex flex-column h-25 bb b--light-gray pa3">
+    <div className="flex flex-column h-25 bb b--washed-yellow pa3 bg-mid-gray">
       <div className="fw7 mb2">{title} </div>
       <div className="flex-auto overflow-scroll">{children}</div>
     </div>
